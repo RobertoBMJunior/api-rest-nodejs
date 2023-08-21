@@ -1,18 +1,15 @@
 import fastify from 'fastify'
-import { knex } from './database'
 import crypto from 'node:crypto'
 import { env } from './env'
+import { transactionsRoutes } from './routes/transactions'
+import { knex } from './database'
 
 const app = fastify()
 
-// http://localhost:3333/hello
-app.get('/hello', async () => {
-  const transactions = await knex('transactions')
-    .select('*')
-    .where('amont', 100)
-
-  return transactions
+app.register(transactionsRoutes, {
+  prefix: 'transactions',
 })
+
 app
   .listen({
     port: env.PORT,
