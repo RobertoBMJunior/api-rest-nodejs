@@ -1,14 +1,5 @@
-import fastify from 'fastify'
-import crypto from 'node:crypto'
+import { app } from './app'
 import { env } from './env'
-import { transactionsRoutes } from './routes/transactions'
-import { knex } from './database'
-
-const app = fastify()
-
-app.register(transactionsRoutes, {
-  prefix: 'transactions',
-})
 
 app
   .listen({
